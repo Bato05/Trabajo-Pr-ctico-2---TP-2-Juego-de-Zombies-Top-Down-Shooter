@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tiles/tilesheet_complete.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obj"]
+atlas = ExtResource("1")
+region = Rect2(1484, 268, 40, 40)
+
+[sub_resource type="CircleShape2D" id="Shape_obj"]
+radius = 20.0
+
+[node name="Mesa" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_obj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_obj")
+
+

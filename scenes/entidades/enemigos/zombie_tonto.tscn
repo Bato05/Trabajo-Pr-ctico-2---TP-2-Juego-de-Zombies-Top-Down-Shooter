@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/entidades/enemigos/enemigo.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/enemigos/zombie_tonto.gd" id="2"]
+
+[node name="ZombieTonto" instance=ExtResource("1")]
+script = ExtResource("2")
+vida = 2
+puntos = 100
+probabilidad_municion = 0.2
+
+

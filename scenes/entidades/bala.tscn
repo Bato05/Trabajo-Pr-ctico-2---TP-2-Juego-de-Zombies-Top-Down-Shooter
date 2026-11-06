@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/bala.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/efectos/bala.png" id="2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="Bala" type="Node2D"]
+z_index = 1
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+texture = ExtResource("2")
+offset = Vector2(-9, 0)
+scale = Vector2(1.4, 1.4)
+
+

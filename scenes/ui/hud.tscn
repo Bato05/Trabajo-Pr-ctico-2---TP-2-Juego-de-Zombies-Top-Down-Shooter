@@ -1,0 +1,286 @@
+[gd_scene format=3]
+
+[ext_resource type="Theme" path="res://assets/ui/tema_neon.tres" id="1"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="2"]
+[ext_resource type="Texture2D" path="res://assets/ui/flecha.png" id="3"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/victoria.wav" id="4"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/derrota.wav" id="5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_chico"]
+font_size = 20
+font_color = Color(0.25, 0.97, 1, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_grande"]
+font_size = 34
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(1, 0.18, 0.53, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_puntaje"]
+font_size = 40
+font_color = Color(1, 0.9, 0.3, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(1, 0.18, 0.53, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aviso"]
+font_size = 54
+font_color = Color(0.4, 1, 0.6, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rosa"]
+font_size = 24
+font_color = Color(1, 0.35, 0.65, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_titulo"]
+font_size = 72
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0.1, 0, 0.2, 1)
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_detalle"]
+font_size = 26
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("2")
+
+[node name="FlashRojo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.85, 0, 0.12, 1)
+
+[node name="Superior" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 28.0
+offset_top = 18.0
+offset_right = -28.0
+offset_bottom = 100.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Izquierda" type="VBoxContainer" parent="Superior"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Nivel" type="Label" parent="Superior/Izquierda"]
+layout_mode = 2
+text = "NIVEL 1"
+label_settings = SubResource("LabelSettings_chico")
+
+[node name="Tiempo" type="Label" parent="Superior/Izquierda"]
+layout_mode = 2
+text = "00:00.00"
+label_settings = SubResource("LabelSettings_grande")
+
+[node name="Centro" type="VBoxContainer" parent="Superior"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Puntaje" type="Label" parent="Superior/Centro"]
+layout_mode = 2
+text = "000000"
+label_settings = SubResource("LabelSettings_puntaje")
+horizontal_alignment = 1
+
+[node name="Record" type="Label" parent="Superior/Centro"]
+layout_mode = 2
+text = "RÉCORD 0"
+label_settings = SubResource("LabelSettings_chico")
+horizontal_alignment = 1
+
+[node name="Derecha" type="VBoxContainer" parent="Superior"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Zombies" type="Label" parent="Superior/Derecha"]
+layout_mode = 2
+text = "ZOMBIES 0 / 0"
+label_settings = SubResource("LabelSettings_rosa")
+horizontal_alignment = 2
+
+[node name="Municion" type="Label" parent="Superior/Derecha"]
+layout_mode = 2
+text = "BALAS 12 | 38"
+label_settings = SubResource("LabelSettings_grande")
+horizontal_alignment = 2
+
+[node name="Objetivo" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Eliminá a TODOS los zombies para abrir la SALIDA"
+label_settings = SubResource("LabelSettings_chico")
+horizontal_alignment = 1
+
+[node name="Aviso" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 130.0
+offset_bottom = 200.0
+grow_horizontal = 2
+mouse_filter = 2
+text = "¡SALIDA ABIERTA!"
+label_settings = SubResource("LabelSettings_aviso")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flecha" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3")
+
+[node name="PanelPausa" type="Control" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1")
+
+[node name="Fondo" type="ColorRect" parent="PanelPausa"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0, 0.1, 0.7)
+
+[node name="Caja" type="VBoxContainer" parent="PanelPausa"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -130.0
+offset_right = 230.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Titulo" type="Label" parent="PanelPausa/Caja"]
+layout_mode = 2
+text = "PAUSA"
+label_settings = SubResource("LabelSettings_titulo")
+horizontal_alignment = 1
+
+[node name="Continuar" type="Button" parent="PanelPausa/Caja"]
+layout_mode = 2
+text = "CONTINUAR"
+
+[node name="Menu" type="Button" parent="PanelPausa/Caja"]
+layout_mode = 2
+text = "VOLVER AL MENÚ"
+
+[node name="PanelFin" type="Control" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1")
+
+[node name="Fondo" type="ColorRect" parent="PanelFin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0, 0.1, 0.6)
+
+[node name="Caja" type="VBoxContainer" parent="PanelFin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -190.0
+offset_right = 450.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Titulo" type="Label" parent="PanelFin/Caja"]
+layout_mode = 2
+text = "NIVEL SUPERADO"
+label_settings = SubResource("LabelSettings_titulo")
+horizontal_alignment = 1
+
+[node name="Detalle" type="Label" parent="PanelFin/Caja"]
+layout_mode = 2
+text = "..."
+label_settings = SubResource("LabelSettings_detalle")
+horizontal_alignment = 1
+
+[node name="Botones" type="HBoxContainer" parent="PanelFin/Caja"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Siguiente" type="Button" parent="PanelFin/Caja/Botones"]
+layout_mode = 2
+text = "SIGUIENTE NIVEL"
+
+[node name="Reintentar" type="Button" parent="PanelFin/Caja/Botones"]
+layout_mode = 2
+text = "REINTENTAR"
+
+[node name="Menu" type="Button" parent="PanelFin/Caja/Botones"]
+layout_mode = 2
+text = "MENÚ"
+
+[node name="TimerVolverMenu" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SonidoVictoria" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4")
+bus = &"Efectos"
+
+[node name="SonidoDerrota" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5")
+bus = &"Efectos"
+
+[connection signal="pressed" from="PanelPausa/Caja/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="PanelPausa/Caja/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PanelFin/Caja/Botones/Siguiente" to="." method="_on_siguiente_pressed"]
+[connection signal="pressed" from="PanelFin/Caja/Botones/Reintentar" to="." method="_on_reintentar_pressed"]
+[connection signal="pressed" from="PanelFin/Caja/Botones/Menu" to="." method="_on_menu_pressed"]
+[connection signal="timeout" from="TimerVolverMenu" to="." method="_on_timer_volver_menu_timeout"]

@@ -1,0 +1,141 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tiles/tilesheet_complete.png" id="1"]
+[ext_resource type="Script" path="res://scripts/puerta_salida.gd" id="2"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/desbloqueo.wav" id="3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hoja"]
+atlas = ExtResource("1")
+region = Rect2(512, 1106, 64, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bloqueo"]
+size = Vector2(64, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_salida"]
+size = Vector2(48, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aviso"]
+size = Vector2(130, 70)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cartel"]
+font_size = 22
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_part"]
+colors = PackedColorArray(0.5, 1, 0.6, 1, 0.3, 1, 0.5, 0)
+
+[sub_resource type="Animation" id="Animation_pulso"]
+resource_name = "pulso"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Luz:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.0),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.45), Color(1, 1, 1, 1), Color(1, 1, 1, 0.45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cartel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.0),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.08, 1.08), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_salida"]
+_data = {
+&"pulso": SubResource("Animation_pulso")
+}
+
+[node name="PuertaSalida" type="Node2D"]
+script = ExtResource("2")
+
+[node name="Luz" type="Polygon2D" parent="."]
+color = Color(1, 0.2, 0.3, 1)
+polygon = PackedVector2Array(-34, -14, 34, -14, 34, 14, -34, 14)
+
+[node name="HojaIzquierda" type="Sprite2D" parent="."]
+position = Vector2(-16, 0)
+scale = Vector2(0.5, 0.6)
+texture = SubResource("AtlasTexture_hoja")
+
+[node name="HojaDerecha" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+scale = Vector2(0.5, 0.6)
+texture = SubResource("AtlasTexture_hoja")
+
+[node name="Bloqueo" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloqueo"]
+shape = SubResource("RectangleShape2D_bloqueo")
+
+[node name="ZonaSalida" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaSalida"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_salida")
+
+[node name="ZonaAviso" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaAviso"]
+position = Vector2(0, -50)
+shape = SubResource("RectangleShape2D_aviso")
+
+[node name="Cartel" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -96.0
+offset_right = 130.0
+offset_bottom = -64.0
+pivot_offset = Vector2(130, 16)
+text = "SALIDA"
+label_settings = SubResource("LabelSettings_cartel")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Particulas" type="CPUParticles2D" parent="."]
+position = Vector2(0, -8)
+emitting = false
+amount = 36
+lifetime = 1.4
+emission_shape = 3
+emission_rect_extents = Vector2(34, 6)
+direction = Vector2(0, -1)
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 90.0
+scale_amount_min = 2.0
+scale_amount_max = 4.5
+color_ramp = SubResource("Gradient_part")
+
+[node name="Sonido" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3")
+bus = &"Efectos"
+max_distance = 1800.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_salida")
+}
+autoplay = "pulso"
+
+[connection signal="body_entered" from="ZonaSalida" to="." method="_on_zona_salida_body_entered"]
+[connection signal="body_entered" from="ZonaAviso" to="." method="_on_zona_aviso_body_entered"]

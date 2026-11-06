@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://b0qksno3t3lea"]
+
+[ext_resource type="Theme" path="res://assets/ui/tema_neon.tres" id="1"]
+[ext_resource type="Shader" uid="uid://s1yl74uyhi0f" path="res://assets/ui/fondo_synthwave.gdshader" id="2"]
+[ext_resource type="Script" uid="uid://dyneogjxev730" path="res://scripts/menu.gd" id="3"]
+[ext_resource type="AudioStream" uid="uid://dpt2ysy2782oi" path="res://assets/audio/musica/musica_menu.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://jcx5cir65cy5" path="res://assets/audio/sfx/disparo.wav" id="5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fondo"]
+shader = ExtResource("2")
+shader_parameter/cielo_arriba = Color(0.08, 0.01, 0.16, 1)
+shader_parameter/cielo_abajo = Color(0.95, 0.18, 0.5, 1)
+shader_parameter/color_grilla = Color(0.25, 0.97, 1, 1)
+shader_parameter/horizonte = 0.62
+shader_parameter/aspecto = 1.7778
+
+[sub_resource type="LabelSettings" id="LabelSettings_titulo"]
+line_spacing = -18.0
+font_size = 104
+font_color = Color(1, 0.3, 0.65, 1)
+outline_size = 18
+outline_color = Color(0.08, 0, 0.12, 1)
+shadow_size = 0
+shadow_color = Color(0.25, 0.97, 1, 1)
+shadow_offset = Vector2(7, 7)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sub"]
+font_size = 22
+font_color = Color(1, 0.92, 0.5, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_peq"]
+font_size = 17
+font_color = Color(0.85, 0.95, 1, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_titulo"]
+resource_name = "titulo"
+length = 2.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Centro/Titulo:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.035, 0.035, -0.035]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Centro/Titulo:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2, 1.8, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_menu"]
+_data = {
+&"titulo": SubResource("Animation_titulo")
+}
+
+[node name="Menu" type="Control" unique_id=172711770]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1")
+script = ExtResource("3")
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=767381578]
+material = SubResource("ShaderMaterial_fondo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Centro" type="VBoxContainer" parent="." unique_id=184521252]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -340.0
+offset_right = 380.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Centro" unique_id=387309307]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+text = "HOTLINE
+ZOMBIES"
+label_settings = SubResource("LabelSettings_titulo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="Centro" unique_id=1714080988]
+layout_mode = 2
+text = "Juego de zombies Top Down Shooter — Godot 4.6 Stable"
+label_settings = SubResource("LabelSettings_sub")
+horizontal_alignment = 1
+
+[node name="Principal" type="VBoxContainer" parent="Centro" unique_id=1972925361]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Botones" type="VBoxContainer" parent="Centro/Principal" unique_id=1547322524]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="Nivel1" type="Button" parent="Centro/Principal/Botones" unique_id=1643672740]
+layout_mode = 2
+text = "NIVEL 1 — LA CASA"
+
+[node name="Nivel2" type="Button" parent="Centro/Principal/Botones" unique_id=757265361]
+layout_mode = 2
+text = "NIVEL 2 — EL LABORATORIO"
+
+[node name="Opciones" type="Button" parent="Centro/Principal/Botones" unique_id=1093063183]
+layout_mode = 2
+text = "OPCIONES"
+
+[node name="Salir" type="Button" parent="Centro/Principal/Botones" unique_id=1708190504]
+layout_mode = 2
+text = "SALIR"
+
+[node name="Records" type="Label" parent="Centro/Principal" unique_id=517545978]
+layout_mode = 2
+text = "Récords"
+label_settings = SubResource("LabelSettings_peq")
+horizontal_alignment = 1
+
+[node name="Controles" type="Label" parent="Centro/Principal" unique_id=1624014847]
+layout_mode = 2
+text = "WASD mover  ·  Mouse apuntar  ·  Click izq. disparar  ·  R recargar  ·  ESC pausa"
+label_settings = SubResource("LabelSettings_peq")
+horizontal_alignment = 1
+
+[node name="Opciones" type="VBoxContainer" parent="Centro" unique_id=595033913]
+visible = false
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 18
+
+[node name="TituloOpciones" type="Label" parent="Centro/Opciones" unique_id=1701433949]
+layout_mode = 2
+text = "VOLUMEN"
+label_settings = SubResource("LabelSettings_sub")
+horizontal_alignment = 1
+
+[node name="General" type="HBoxContainer" parent="Centro/Opciones" unique_id=1365045806]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Nombre" type="Label" parent="Centro/Opciones/General" unique_id=1687917259]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "General"
+
+[node name="Slider" type="HSlider" parent="Centro/Opciones/General" unique_id=1559000280]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 80.0
+
+[node name="Valor" type="Label" parent="Centro/Opciones/General" unique_id=998140100]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "80%"
+horizontal_alignment = 2
+
+[node name="Musica" type="HBoxContainer" parent="Centro/Opciones" unique_id=1929373996]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Nombre" type="Label" parent="Centro/Opciones/Musica" unique_id=1064048695]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Música"
+
+[node name="Slider" type="HSlider" parent="Centro/Opciones/Musica" unique_id=1512243236]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 80.0
+
+[node name="Valor" type="Label" parent="Centro/Opciones/Musica" unique_id=1936050030]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "80%"
+horizontal_alignment = 2
+
+[node name="Efectos" type="HBoxContainer" parent="Centro/Opciones" unique_id=2039687790]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Nombre" type="Label" parent="Centro/Opciones/Efectos" unique_id=679642073]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Efectos"
+
+[node name="Slider" type="HSlider" parent="Centro/Opciones/Efectos" unique_id=1525624644]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 80.0
+
+[node name="Valor" type="Label" parent="Centro/Opciones/Efectos" unique_id=1543121172]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+text = "80%"
+horizontal_alignment = 2
+
+[node name="Volver" type="Button" parent="Centro/Opciones" unique_id=540520137]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VOLVER"
+
+[node name="Musica" type="AudioStreamPlayer" parent="." unique_id=1716477706]
+stream = ExtResource("4")
+autoplay = true
+bus = &"Musica"
+
+[node name="SonidoPrueba" type="AudioStreamPlayer" parent="." unique_id=787696235]
+stream = ExtResource("5")
+volume_db = -6.0
+bus = &"Efectos"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=917567725]
+libraries/ = SubResource("AnimationLibrary_menu")
+autoplay = &"titulo"
+
+[connection signal="pressed" from="Centro/Principal/Botones/Nivel1" to="." method="_on_button_nivel_1_pressed"]
+[connection signal="pressed" from="Centro/Principal/Botones/Nivel2" to="." method="_on_button_nivel_2_pressed"]
+[connection signal="pressed" from="Centro/Principal/Botones/Opciones" to="." method="_on_button_opciones_pressed"]
+[connection signal="pressed" from="Centro/Principal/Botones/Salir" to="." method="_on_salir_pressed"]
+[connection signal="value_changed" from="Centro/Opciones/General/Slider" to="." method="_on_slider_general_value_changed"]
+[connection signal="value_changed" from="Centro/Opciones/Musica/Slider" to="." method="_on_slider_musica_value_changed"]
+[connection signal="value_changed" from="Centro/Opciones/Efectos/Slider" to="." method="_on_slider_efectos_value_changed"]
+[connection signal="pressed" from="Centro/Opciones/Volver" to="." method="_on_volver_pressed"]

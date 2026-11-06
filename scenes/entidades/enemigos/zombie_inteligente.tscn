@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/entidades/enemigos/enemigo.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/enemigos/zombie_inteligente.gd" id="2"]
+
+[node name="ZombieInteligente" instance=ExtResource("1")]
+script = ExtResource("2")
+vida = 3
+puntos = 250
+probabilidad_municion = 0.35
+tinte = Color(1, 0.45, 0.4, 1)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 6.0
+target_desired_distance = 6.0
+radius = 16.0
+
+[node name="TimerRuta" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="TimerRuta" to="." method="_on_timer_ruta_timeout"]

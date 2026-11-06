@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b0a3d"/>
+      <stop offset="0.55" stop-color="#ff2e88"/>
+      <stop offset="1" stop-color="#ffb347"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="22" fill="url(#bg)"/>
+  <g fill="none" stroke="#2b0a3d" stroke-opacity="0.35" stroke-width="3">
+    <line x1="4" y1="84" x2="124" y2="84"/><line x1="4" y1="96" x2="124" y2="96"/><line x1="4" y1="108" x2="124" y2="108"/>
+  </g>
+  <!-- cabeza de zombie -->
+  <circle cx="64" cy="58" r="30" fill="#6bbf59" stroke="#1a1a1a" stroke-width="5"/>
+  <rect x="44" y="50" width="12" height="9" rx="2" fill="#1a1a1a"/>
+  <circle cx="76" cy="54" r="7" fill="#1a1a1a"/>
+  <path d="M46 74 L52 69 L58 75 L64 69 L70 75 L76 69 L82 74" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round"/>
+  <!-- mira -->
+  <g stroke="#3ff6ff" stroke-width="5" stroke-linecap="round" fill="none">
+    <circle cx="64" cy="58" r="44" stroke-opacity="0.9"/>
+    <line x1="64" y1="6" x2="64" y2="22"/><line x1="64" y1="94" x2="64" y2="110"/>
+    <line x1="12" y1="58" x2="28" y2="58"/><line x1="100" y1="58" x2="116" y2="58"/>
+  </g>
+</svg>

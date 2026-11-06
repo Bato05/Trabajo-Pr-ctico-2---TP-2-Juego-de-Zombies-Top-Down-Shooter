@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/tiles/tilesheet_complete.png" id="1"]
+[ext_resource type="Script" path="res://scripts/puerta.gd" id="2"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/puerta.wav" id="3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_puerta"]
+atlas = ExtResource("1")
+region = Rect2(512, 1106, 64, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoja"]
+size = Vector2(62, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sensor"]
+size = Vector2(64, 110)
+
+[node name="Puerta" type="Node2D"]
+script = ExtResource("2")
+
+[node name="Hoja" type="AnimatableBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Hoja"]
+position = Vector2(32, 0)
+scale = Vector2(1, 0.55)
+texture = SubResource("AtlasTexture_puerta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoja"]
+position = Vector2(32, 0)
+shape = SubResource("RectangleShape2D_hoja")
+
+[node name="Bisagra" type="Polygon2D" parent="."]
+color = Color(0.15, 0.1, 0.05, 1)
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[node name="Sensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
+position = Vector2(32, 0)
+shape = SubResource("RectangleShape2D_sensor")
+
+[node name="Sonido" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3")
+bus = &"Efectos"
+max_distance = 1800.0
+volume_db = -3.0
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]
